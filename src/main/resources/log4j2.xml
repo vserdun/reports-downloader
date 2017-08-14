@@ -15,8 +15,5 @@
             <appenderRef ref="File"/>
             <appenderRef ref="Console"/>
         </Root>
-        <Logger name="com.crittersteam" level="INFO">
-            <appender-ref ref="File" level="INFO" />
-        </Logger>
     </Loggers>
 </Configuration>
