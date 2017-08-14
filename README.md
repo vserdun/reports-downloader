@@ -1,6 +1,5 @@
 Sample reports downloader application.
 Application downloads 500 reports in parallel mode and store it on the disk.
-
 1. Make sure that maven is intalled and configured
 Open reports-downloader root folder
 
