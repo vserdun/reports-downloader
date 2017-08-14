@@ -55,7 +55,7 @@ public class ReportsDownloaderTests {
   @Test
   public void dowтnloadAndStore10Reports() throws IOException {
     int reportsCount = 10;
-    List<String> reportNames  = new ArrayList<>();;
+    List<String> reportNames  = new ArrayList<>();
     IntStream.range(0, reportsCount)
         .forEach(
             reportIndex -> reportNames.add("Report_" + (reportIndex + 1))
