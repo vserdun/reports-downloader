@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Configuration>
+    <Appenders>
+        <File name="File" fileName="${sys:catalina.home}/logs/reports-downloader.log" append="true">
+            <PatternLayout>
+                <pattern>%d %p %C{1.} [%t] %m%n</pattern>
+            </PatternLayout>
+        </File>
+        <Console name="Console" target="SYSTEM_OUT">
+            <PatternLayout pattern="%d %p %C{1.} [%t] %m%n"/>
+        </Console>
+    </Appenders>
+    <Loggers>
+        <Root level="INFO">
+            <appenderRef ref="File"/>
+            <appenderRef ref="Console"/>
+        </Root>
+        <Logger name="com.crittersteam" level="INFO">
+            <appender-ref ref="File" level="INFO" />
+        </Logger>
+    </Loggers>
+</Configuration>
