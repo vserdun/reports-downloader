@@ -2,17 +2,13 @@ package com.reports;
 
 import com.reports.api.client.ReportingApiClient;
 import com.reports.api.client.SlowReportingApiClient;
-import com.reports.config.ReportsConfiguration;
-import com.reports.storage.LocalFileReportStorageProvider;
 import com.reports.storage.ReportStorageProvider;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
-import java.io.FileNotFoundException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.*;
-import java.util.stream.IntStream;
 
 /**
  * Created by vserdun on 8/9/2017.
@@ -26,18 +22,20 @@ public class ReportsDownloader {
   private static final Logger log = LogManager.getLogger(ReportsDownloader.class);
 
   ReportStorageProvider reportStorageProvider;
+
   /**
-   *  Constructor which use {@link ReportStorageProvider} as place for reports storage
-  */
+   * Constructor which use {@link ReportStorageProvider} as place for reports storage
+   */
   public ReportsDownloader(ReportStorageProvider reportStorageProvider) {
     this.reportStorageProvider = reportStorageProvider;
   }
 
   /**
    * Downloads and stores reports in parallel mode to specified location
-   * @see ReportStorageProvider
+   *
    * @param reportNames list of report names to download
    * @return list of stored reports in download time order
+   * @see ReportStorageProvider
    */
   public List<String> downloadAndStoreReports(List<String> reportNames) {
     ExecutorService taskExecutor = Executors.newFixedThreadPool(100);
@@ -53,18 +51,18 @@ public class ReportsDownloader {
 
     try {
       while (!taskExecutor.isTerminated()) {
-          final Future<ReportingApiClient.Report> future = taskCompletionService.take();
-          final ReportingApiClient.Report report = future.get();
-          reportStorageProvider.storeReport(report);
-          storedReports.add(report.getName());
-        }
-      } catch (ExecutionException e) {
-        log.error("Error while downloading report ", e);
-      } catch (InterruptedException e) {
-        log.error("InterruptedException", e);
+        final Future<ReportingApiClient.Report> future = taskCompletionService.take();
+        final ReportingApiClient.Report report = future.get();
+        reportStorageProvider.storeReport(report);
+        storedReports.add(report.getName());
       }
+    } catch (ExecutionException e) {
+      log.error("Error while downloading report ", e);
+    } catch (InterruptedException e) {
+      log.error("InterruptedException", e);
+    }
 
-      return storedReports;
+    return storedReports;
   }
 
   /**
@@ -81,6 +79,7 @@ public class ReportsDownloader {
 
     /**
      * Downloads report using {@link ReportingApiClient}
+     *
      * @return downloaded report
      * @throws Exception
      */
