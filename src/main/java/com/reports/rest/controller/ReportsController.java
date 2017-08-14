@@ -6,6 +6,9 @@ import com.reports.storage.LocalFileReportStorageProvider;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.util.Arrays;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.List;
 
 /**
@@ -22,8 +25,7 @@ public class ReportsController {
     String storageFilePath = ReportsConfiguration.getReportsDownloadFilePath();
 
     ReportsDownloader reportsDownloader = new ReportsDownloader(new LocalFileReportStorageProvider(storageFilePath));
-    reportsDownloader.downloadAndStoreReports(reportNames);
-
-    return new String(String.format("Reports with names %s were downloaded to folder %s",reportNames,storageFilePath));
+    List<String> storedReports = reportsDownloader.downloadAndStoreReports(reportNames);
+    return new String(String.format("Reports with names %s were downloaded to folder %s",storedReports,storageFilePath));
   }
 }

@@ -53,7 +53,7 @@ public class ReportsDownloaderTests {
   }
 
   @Test
-  public void donwnloadAndStore10Reports() throws IOException {
+  public void dowтnloadAndStore10Reports() throws IOException {
     int reportsCount = 10;
     List<String> reportNames  = new ArrayList<>();;
     IntStream.range(0, reportsCount)
@@ -62,10 +62,11 @@ public class ReportsDownloaderTests {
         );
 
     ReportsDownloader reportsDownloader = new ReportsDownloader(new LocalFileReportStorageProvider(reportsTestLocation));
-    reportsDownloader.downloadAndStoreReports(reportNames);
+    List<String> storedReports = reportsDownloader.downloadAndStoreReports(reportNames);
     File reportsDirectory = new File(reportsTestLocation);
     List<File> listOfFiles = Arrays.asList(reportsDirectory.listFiles());
 
+    assertEquals(reportsCount, storedReports.size());
     assertEquals(reportsCount, listOfFiles.size());
 
     boolean allReportNamesAreCorrect = true;
