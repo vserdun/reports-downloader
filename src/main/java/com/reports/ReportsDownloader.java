@@ -57,9 +57,9 @@ public class ReportsDownloader {
           reportStorageProvider.storeReport(report);
         }
       } catch (ExecutionException e) {
-        log.warn("Error while downloading report ", e);
+        log.error("Error while downloading report ", e);
       } catch (InterruptedException e) {
-        log.warn("InterruptedException", e);
+        log.error("InterruptedException", e);
       }
   }
 
