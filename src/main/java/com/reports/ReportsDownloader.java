@@ -33,17 +33,6 @@ public class ReportsDownloader {
     this.reportStorageProvider = reportStorageProvider;
   }
 
-  public static void main(String[] args){
-
-      List<String> reportNames = ReportsConfiguration.generateSampleReportNames();
-      String storageFilePath = ReportsConfiguration.getReportsDownloadFilePath();
-
-      ReportsDownloader reportsDownloader = new ReportsDownloader(new LocalFileReportStorageProvider(storageFilePath));
-      reportsDownloader.downloadAndStoreReports(reportNames);
-
-  }
-
-
   /**
    * Downloads and stores reports in parallel mode to specified location
    * @see ReportStorageProvider
